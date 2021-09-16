@@ -38,8 +38,9 @@ class Project extends React.Component {
     const question = this.state.quiz[this.state.activeQuestion];
 
     if (question.rightAnswerId === answerId) {
-
-        
+      this.setState({
+        answerState: { [answerId]: "success" },
+      });
 
       const timeOut = window.setTimeout(() => {
         if (this.isQuizFinished()) {
@@ -52,6 +53,9 @@ class Project extends React.Component {
         window.clearTimeout(timeOut);
       }, 1000);
     } else {
+      this.setState({
+        answerState: { [answerId]: "error" },
+      });
     }
   };
 
@@ -67,6 +71,7 @@ class Project extends React.Component {
             onAnswerClick={this.onAnswerClickHandler}
             quizLength={this.state.quiz.length}
             answerNumber={this.state.activeQuestion + 1}
+            state={this.state.answerState}
           />
         </div>
       </div>

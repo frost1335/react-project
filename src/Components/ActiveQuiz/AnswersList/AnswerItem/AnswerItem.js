@@ -2,6 +2,9 @@ import React from "react";
 import classes from "./AnswerItem.module.css";
 
 const AnswerItem = (props) => {
+  if (props.state) {
+    
+  }
   return (
     <li
       className={classes.AnswerItem}
