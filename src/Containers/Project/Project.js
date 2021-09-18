@@ -13,6 +13,7 @@ class Project extends React.Component {
       {
         question: "Какого цвета небо ?",
         rightAnswerId: 2,
+        id: 1,
         answers: [
           { text: "Чёрный", id: 1 },
           { text: "Синий", id: 2 },
@@ -23,6 +24,7 @@ class Project extends React.Component {
       {
         question: "В каком году основали Санкт-Петербург ?",
         rightAnswerId: 3,
+        id: 2,
         answers: [
           { text: "1700", id: 1 },
           { text: "1702", id: 2 },
@@ -32,10 +34,6 @@ class Project extends React.Component {
       },
     ],
   };
-
-  isQuizFinished() {
-    return this.state.activeQuestion + 1 === this.state.quiz.length;
-  }
 
   onAnswerClickHandler = (answerId) => {
     if (this.state.answerState) {
@@ -49,8 +47,8 @@ class Project extends React.Component {
     const results = this.state.results;
 
     if (question.rightAnswerId === answerId) {
-      if (!results[answerId]) {
-        results[answerId] = "success";
+      if (!results[question.id]) {
+        results[question.id] = "success";
       }
 
       this.setState({
@@ -70,13 +68,17 @@ class Project extends React.Component {
         window.clearTimeout(timeOut);
       }, 1000);
     } else {
-      results[answerId] = "error";
+      results[question.id] = "error";
       this.setState({
         answerState: { [answerId]: "error" },
         results,
       });
     }
   };
+
+  isQuizFinished() {
+    return this.state.activeQuestion + 1 === this.state.quiz.length;
+  }
 
   render() {
     return (
